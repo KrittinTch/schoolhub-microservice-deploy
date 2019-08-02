@@ -1,0 +1,18 @@
+1. สร้างเครื่อง server บน aws 
+    docker-machine create --driver amazonec2 --amazonec2-region ap-southeast-1 --amazonec2-access-key AKIAJNHPKPLAK5XEQVDQ --amazonec2-secret-key  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 --swarm [instance name]
+2. remote เข้าเครื่อง server บน aws 
+    docker-machine env [instance name]
+3. หรือ ใช้คำสั่งนี้
+    & "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env [instance name] | Invoke-Expression
+4. ตรวจสอบการรีโมทด้วยคำสั่ง 
+    docker-machine ls
+5. ตรวจสอบการรีโมทถึงเครื่องว่าสำเร็จหรือไม่
+    โดยการดูช่อง ACTIVE ว่ามี * 
+6. ทำการ join swarm ด้วยคำสั่ง 
+    docker swarm init
+7. ทำการติดตั้ง database ลงบนเครื่อง server จาก ไฟล์ docker-compose-1.yml ด้วยคำสั่ง
+    docker stack deploy -c docker-compose-1.yml [stack name]
+8. ทำการติดตั้ง microservice ต่างๆด้วยไฟล์ docker-compose-2.yml ด้วยคำสั่ง
+    docker stack deploy -c docker-compose-2.yml [stack name]
+
+**การติดตั้ง microservice ควรรอให้การติดตั้ง database สำเร็จก่อน

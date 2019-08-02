@@ -1,0 +1,40 @@
+version: '3'
+services:
+  # db:
+  #   image: mongo
+  #   ports:
+  #     - "3099:27017"
+  #   deploy:
+  #     replicas: 1
+  auth:
+    image: cyberadvance/authen-service
+    ports:
+      - "3001:3000"
+    environment:
+      - MONGO_DB_URI=mongodb://db/sch-db
+      - AMQP_URL=amqp://18.136.211.198
+      # - AMQP_URL=amqp://xeyvpanu:ZUkVpxBMXr1Dm2cQOQZyKumESIPohGyJ@vulture.rmq.cloudamqp.com/xeyvpanu
+    deploy:
+      replicas: 1
+
+  school:
+    image: cyberadvance/schoolservice
+    ports:
+      - "3002:3000"
+    environment:
+      - MONGO_DB_URI=mongodb://db/sch-db
+      - AMQP_URL=amqp://18.136.211.198
+    deploy:
+      replicas: 1
+
+  course:
+    image: cyberadvance/course-service
+    ports:
+      - "3003:3000"
+    environment:
+      - MONGO_DB_URI=mongodb://db/sch-db
+      - AMQP_URL=amqp://18.136.211.198
+    deploy:
+      replicas: 1
+
+  
