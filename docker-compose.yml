@@ -37,4 +37,13 @@ services:
     deploy:
       replicas: 1
 
+  collaborator:
+    image: cyberadvance/collaborator-service
+    ports:
+      - "3004:3000"
+    environment:
+      - MONGO_DB_URI=mongodb://db/sch-db
+      - AMQP_URL=amqp://18.136.211.198
+    deploy:
+      replicas: 1
   
